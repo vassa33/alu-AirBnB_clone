@@ -127,15 +127,19 @@ class HBNBCommand(cmd.Cmd):
         objdict = storage.all()
         if len(arg_list) == 0:
             print("** class name missing **")
+            return
         elif arg_list[0] not in self.__all_classes:
             print("** class doesn't exist **")
+            return
         elif len(arg_list) == 1:
             print("** instance id missing **")
+            return
 
         object_key = "{}.{}".format(arg_list[0], arg_list[1])
 
         if object_key not in objdict:
             print("** no instance found **")
+            return
         else:
             print(objdict[object_key])
 
@@ -164,16 +168,26 @@ class HBNBCommand(cmd.Cmd):
         If no class is specified, display all instantiated objects."""
 
         arg_list = args.split()
+        all_objects_str = storage.all().values()
+        object_list = []
+        if len(arg_list) == 0:
+            for obj in all_objects_str:
+                obj = eval(obj["__class__"] + "(**" + str(obj) + ")")
+                object_list.append(obj.__str__())
+            print(list(object_list))
+            return
+
         if len(arg_list) > 0 and arg_list[0] not in self.__all_classes:
             print("** class doesn't exist **")
-        else:
-            object_list = []
-            for obj in storage.all().values():
-                if len(arg_list) > 0 and arg_list[0] == obj.__class__.__name__:
-                    object_list.append(obj.__str__())
-                elif len(arg_list) == 0:
-                    object_list.append(obj.__str__())
-            print(object_list)
+            return
+        class_name = arg_list[0]
+        object_list = []
+
+        for obj in all_objects_str:
+            if class_name == obj["__class__"]:
+                obj = eval(class_name + "(**" + str(obj) + ")")
+                object_list.append(obj.__str__())
+        print(object_list)
 
     def do_count(self, args):
         """Usage: to count <class> or <class>.count()
@@ -226,15 +240,26 @@ class HBNBCommand(cmd.Cmd):
             return False
         attribute_value = arg_list[3]
 
+        if attribute_value.isdigit():
+            if isinstance(attribute_value, float):
+                attribute_value = float(attribute_value)
+            elif isinstance(attribute_value, int):
+                attribute_value = int(attribute_value)
+
         # update BaseModel 00c0c670-e5f3-4603-9aa1-3caca5ee0e75
         # email "aibnb@mail.com"
 
         obj = all_object_dict[object_key]
-        attribute_original_type = type(obj[attribute_name])
-        attribute_value = attribute_original_type(attribute_value)
-
-        if attribute_original_type in {str, int, float}:
+        # check if the attribute exist already
+        if attribute_name in obj:
+            attribute_original_type = type(obj[attribute_name])
             attribute_value = attribute_original_type(attribute_value)
+
+            if attribute_original_type in {str, int, float}:
+                attribute_value = attribute_original_type(attribute_value)
+                obj[attribute_name] = attribute_value
+        # if it doesn’t exist we add it
+        else:
             obj[attribute_name] = attribute_value
 
         storage.save()
