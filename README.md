@@ -64,7 +64,18 @@ This allows the storage to be reloaded automatically at initialization, which re
 
 All the code is tested with the **unittest** module.
 The test for the classes are in the [tests](./tests) folder.
+To run the entire test suite simultaneously, execute the following command:
+
+```
+$ python3 unittest -m discover tests
+```
+
+Alternatively, you can specify a single test file to run at a time:
+
+```
+$ python3 unittest -m tests/test_console.py
+```
 
 ## Authors :black_nib:
 * **Abdourahmane Issaka Sani** <[AbdourahmaneIssakaSani](https://github.com/AbdourahmaneIssakaSani)> <a.sani@alustudent.com>
-* **Peggy Vanessa A. Otieno** <[vassa33](https://github.com/vassa33)> <p.otieno@alustudent.com>
+* **Peggy Vanessa A. Otieno** <[vassa33](https://github.com/vassa33)> <p.otieno@alustudent.com> 
