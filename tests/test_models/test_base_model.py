@@ -40,6 +40,21 @@ class TestBaseModel(unittest.TestCase):
         self.assertNotEqual(base.updated_at, base.created_at)
         self.assertTrue(base.updated_at > base.created_at)
 
+    def test_save_file(self):
+        """test save."""
+        if os.path.isfile("file.json"):
+            os.remove(os.path.join("file.json"))
+            print(os.path.isfile("file.json"))
+        base = BaseModel()
+        print(base.id)
+        time.sleep(1)
+        base.save()
+        self.assertTrue(os.path.isfile("file.json"))
+        with open("file.json", 'w') as file:
+            serialized_content = json.load(file)
+            for item in serialized_content.values():
+                self.assertIsNotNone(item['__class__'])
+
     def test_str_(self):
         """test str."""
         base = BaseModel()
