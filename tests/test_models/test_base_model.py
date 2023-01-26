@@ -12,7 +12,10 @@ import os
 import re
 import time
 import unittest
+import time
 import uuid
+from io import StringIO
+from unittest.mock import patch
 
 
 class TestBaseModel(unittest.TestCase):
@@ -31,15 +34,28 @@ class TestBaseModel(unittest.TestCase):
 
     def test_save(self):
         """test save."""
-        pass
+        base = BaseModel()
+        time.sleep(1)
+        base.save()
+        self.assertNotEqual(base.updated_at, base.created_at)
+        self.assertTrue(base.updated_at > base.created_at)
 
     def test_str_(self):
         """test str."""
-        pass
+        base = BaseModel()
+
+        with patch("sys.stdout", new=StringIO()) as fake_out:
+            print(base)
+            self.assertEqual(fake_out.getvalue(),
+                             "[{}] ({}) {}\n".format(base.__class__.__name__,
+                                                     base.id,
+                                                     base.__dict__))
 
     def test_to_dict(self):
         """test dict."""
-        pass
+        base = BaseModel()
+        dict_repr = base.to_dict()
+        self.assertTrue(dict_repr['__class__'] == base.__class__.__name__)
 
 
 if __name__ == "__main__":
