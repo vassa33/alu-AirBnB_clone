@@ -14,7 +14,7 @@ class FileStorage:
         __file_path (str): Name of the file to save objects to.
         __objects (dict): Dictionary of instantiated objects.
     """
-    __file_path = "file.json"
+    __file_path = 'file.json'
     __objects = {}
 
     def all(self):
@@ -23,13 +23,16 @@ class FileStorage:
 
     def new(self, obj):
         """Set in __objects obj with the  key <obj_class_name>.id"""
-        key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        self.__objects[key] = obj.to_dict()
+        key = '{}.{}'.format(obj.__class__.__name__, obj.id)
+        self.__objects[key] = obj
 
     def save(self):
         """Serialize __objects to JSON file __file_path."""
+        object_dict = {}
+        for obj in self.__objects:
+            object_dict[obj] = self.__objects[obj].to_dict()
         with open(self.__file_path, 'w') as file:
-            json.dump(self.__objects, file)
+            json.dump(object_dict, file)
 
     def reload(self):
         """
