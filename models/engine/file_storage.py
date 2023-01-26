@@ -6,7 +6,7 @@ import json
 class FileStorage:
     """
     Class FileStorage
-    Represent an abstracted storage engine.
+    Represent an abstracted storage test_engine.
 
     It serializes instances to a JSON file and deserializes
     JSON file to instances.
