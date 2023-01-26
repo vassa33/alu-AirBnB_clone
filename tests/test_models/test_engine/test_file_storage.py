@@ -20,6 +20,30 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(str(type(storage)),
                          "<class 'models.engine.file_storage.FileStorage'>")
 
+    def test_file_path(self):
+        pass
+
+    def test_objects(self):
+        pass
+
+    def test_all(self):
+        pass
+
+    def test_new(self):
+        pass
+
+    def test_save(self):
+        pass
+
+    def test_reload(self):
+        pass
+
+    def test_base_model_init_kwargs(self):
+        pass
+
+    def test_base_model_save(self):
+        pass
+
 
 if __name__ == "__main__":
     unittest.main()

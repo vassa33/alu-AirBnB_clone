@@ -29,6 +29,18 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(str(type(base)),
                          "<class 'models.base_model.BaseModel'>")
 
+    def test_save(self):
+        """test save."""
+        pass
+
+    def test_str_(self):
+        """test str."""
+        pass
+
+    def test_to_dict(self):
+        """test dict."""
+        pass
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -28,6 +28,14 @@ class TestReview(unittest.TestCase):
         review = Review()
         self.assertTrue(issubclass(type(review), BaseModel))
 
+    def test_text(self):
+        """test is_subclass."""
+        review = Review()
+        self.assertIsNotNone(review.id)
+        self.assertEqual(review.text, "")
+        self.assertEqual(review.user_id, "")
+        self.assertEqual(review.place_id, "")
+
 
 if __name__ == "__main__":
     unittest.main()

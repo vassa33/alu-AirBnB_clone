@@ -28,6 +28,16 @@ class TestCity(unittest.TestCase):
         city = City()
         self.assertTrue(issubclass(type(city), BaseModel))
 
+    def test_name(self):
+        """test is_subclass."""
+        city = City()
+        self.assertEqual(city.name, "")
+
+    def test_state_id(self):
+        """test is_subclass."""
+        city = City()
+        self.assertEqual(city.state_id, "")
+
 
 if __name__ == "__main__":
     unittest.main()

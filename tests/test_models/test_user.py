@@ -28,6 +28,39 @@ class TestCity(unittest.TestCase):
         user = User()
         self.assertTrue(issubclass(type(user), BaseModel))
 
+    def test_id(self):
+        """test email."""
+        my_user = User()
+        self.assertIsNotNone(my_user.id)
+
+    def test_email(self):
+        """test email."""
+        my_user = User()
+        self.assertEqual(my_user.email, "")
+        my_user.email = "airbnb@mail.com"
+        self.assertEqual(my_user.email, "airbnb@mail.com")
+
+    def test_password(self):
+        """test password."""
+        my_user = User()
+        self.assertEqual(my_user.password, "")
+        my_user.password = "root"
+        self.assertEqual(my_user.password, "root")
+
+    def test_first_name(self):
+        """test first name."""
+        my_user = User()
+        self.assertEqual(my_user.first_name, "")
+        my_user.first_name = "Betty"
+        self.assertEqual(my_user.first_name, "Betty")
+
+    def test_last_name(self):
+        """test last name."""
+        my_user = User()
+        self.assertEqual(my_user.last_name, "")
+        my_user.first_name = "Bar"
+        self.assertEqual(my_user.first_name, "Bar")
+
 
 if __name__ == "__main__":
     unittest.main()

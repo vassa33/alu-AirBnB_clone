@@ -29,6 +29,12 @@ class TestState(unittest.TestCase):
         state = State()
         self.assertTrue(issubclass(type(state), BaseModel))
 
+    def test_attr(self):
+        """test is_subclass."""
+        state = State()
+        self.assertIsNotNone(state.id)
+        self.assertEqual(state.name, "")
+
 
 if __name__ == "__main__":
     unittest.main()
