@@ -66,5 +66,30 @@ class TestFileStorage(unittest.TestCase):
         del storage
 
 
+class TestFileStorageReload(unittest.TestCase):
+    """test again reload"""
+    file_path = 'file.json'
+
+    def setUp(self):
+        self.storage = FileStorage()
+
+    def tearDown(self):
+        if os.path.exists(self.file_path):
+            os.remove(self.file_path)
+        del self.storage
+
+    def test_reload(self):
+        """test again reload"""
+        base = BaseModel()
+        base.save()
+
+        self.storage.reload()
+
+        object_key = "{}.{}".format(base.__class__.__name__, base.id)
+        self.assertIn(object_key, self.storage.all())
+
+        self.assertEqual(self.storage.all()[object_key].id, base.id)
+
+
 if __name__ == "__main__":
     unittest.main()
