@@ -168,11 +168,10 @@ class HBNBCommand(cmd.Cmd):
         If no class is specified, display all instantiated objects."""
 
         arg_list = args.split()
-        all_objects_str = storage.all().values()
+        all_objects = storage.all()
         object_list = []
         if len(arg_list) == 0:
-            for obj in all_objects_str:
-                obj = eval(obj["__class__"] + "(**" + str(obj) + ")")
+            for obj in all_objects.values():
                 object_list.append(obj.__str__())
             print(list(object_list))
             return
@@ -183,10 +182,9 @@ class HBNBCommand(cmd.Cmd):
         class_name = arg_list[0]
         object_list = []
 
-        for obj in all_objects_str:
-            if class_name == obj["__class__"]:
-                obj = eval(class_name + "(**" + str(obj) + ")")
-                object_list.append(obj.__str__())
+        for obj in all_objects:
+            if class_name == all_objects[obj].__class__.__name__:
+                object_list.append(str(all_objects[obj]))
         print(object_list)
 
     def do_count(self, args):
@@ -208,7 +206,7 @@ class HBNBCommand(cmd.Cmd):
        given attribute key/value pair or dictionary."""
 
         arg_list = args.split()
-        all_object_dict = storage.all()
+        all_objects = storage.all()
 
         if len(arg_list) == 0:
             print("** class name missing **")
@@ -226,7 +224,7 @@ class HBNBCommand(cmd.Cmd):
         instance_id = arg_list[1]
         object_key = "{}.{}".format(class_name, instance_id)
 
-        if object_key not in all_object_dict.keys():
+        if object_key not in all_objects:
             print("** no instance found **")
             return False
 
@@ -249,9 +247,9 @@ class HBNBCommand(cmd.Cmd):
         # update BaseModel 00c0c670-e5f3-4603-9aa1-3caca5ee0e75
         # email "aibnb@mail.com"
 
-        obj = all_object_dict[object_key]
+        obj = all_objects[object_key]
         # check if the attribute exist already
-        if attribute_name in obj:
+        if attribute_name in obj.to_dict():
             attribute_original_type = type(obj[attribute_name])
             attribute_value = attribute_original_type(attribute_value)
 
@@ -260,7 +258,7 @@ class HBNBCommand(cmd.Cmd):
                 obj[attribute_name] = attribute_value
         # if it doesn’t exist we add it
         else:
-            obj[attribute_name] = attribute_value
+            obj.__dict__.update({attribute_name: attribute_value})
 
         storage.save()
 
