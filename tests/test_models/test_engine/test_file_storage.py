@@ -57,6 +57,14 @@ class TestFileStorage(unittest.TestCase):
         self.storage.reload()
         self.assertIsInstance(self.storage.all(), type({}))
 
+    def test_reload_more(self):
+        """test reload"""
+        storage = FileStorage()
+        storage.all().clear()
+        storage.reload()
+        self.assertEqual({}, self.storage.all())
+        del storage
+
 
 if __name__ == "__main__":
     unittest.main()
