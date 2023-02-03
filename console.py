@@ -32,10 +32,47 @@ def parse(arg):
 
 
 class HBNBCommand(cmd.Cmd):
-    """Defines command interpreter.
+    """Command interpreter for the HBNB project
 
-    Attributes:
-        prompt (str): The command prompt.
+
+    **CMD MODULE CONVENTION**
+
+
+    The cmd module in Python provides a framework for writing
+    line-oriented command interpreters. It provides a base class, cmd.Cmd,
+    that defines methods and attributes for creating a command-line interface.
+
+    Conventions followed by the cmd module:
+
+    Command methods must start with the prefix ``do_``
+
+    *Examples:*\n
+    ``do_quit()`` will run the command ``quit`` \n
+    ``do_foo()`` will run the command ``foo``
+
+    \n
+
+    Help methods must start with the prefix ``help_``
+
+     *Examples:*\n
+    ``help_quit()`` will run the command ``help quit`` \n
+    ``help_save()`` will run the command ``help save``
+
+    The ``emptyline()`` method is called when an empty line is entered in the
+    command prompt. By default, it repeats the last non-empty command entered.
+    However, it can be overridden to perform a different action or pass.
+
+    The ``EOF`` command (or Ctrl-D) is handled by the ``do_EOF()`` method,
+    which by default exits the command interpreter.
+
+    The ``quit`` command is handled by the ``do_quit()`` method,
+    which by default exits the command interpreter.
+
+    The ``help`` command is handled by the ``do_help()`` method,
+    which by default lists all available commands and their brief descriptions.
+
+    More information can be found in the official documentation on
+    [cmd module source code](https://github.com/python/cpython/blob/3.11/Lib/cmd.py)
     """
 
     prompt = "(hbnb) "
