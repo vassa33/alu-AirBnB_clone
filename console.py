@@ -72,7 +72,7 @@ class HBNBCommand(cmd.Cmd):
     which by default lists all available commands and their brief descriptions.
 
     More information can be found in the official documentation on
-    [cmd module source code](https://github.com/python/cpython/blob/3.11/Lib/cmd.py)
+    [cmd source code](https://github.com/python/cpython/blob/3.11/Lib/cmd.py)
     """
 
     prompt = "(hbnb) "
