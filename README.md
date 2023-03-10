@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/vassa33/alu-AirBnB_clone/blob/main/assets/hbnb_logo.png" alt="HolbertonBnB logo">
+</p>
+
 <h1 align="center">alu-AirBnB</h1>
 <p align="center">An AirBnB clone.</p>
 
